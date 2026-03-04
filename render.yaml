@@ -53,5 +53,5 @@ services:
 databases:
   - name: tradeiq-db
     databaseName: tradeiq
-    plan: basic            # £7/mo — persistent PostgreSQL
+    plan: free            # £7/mo — persistent PostgreSQL
     region: frankfurt
