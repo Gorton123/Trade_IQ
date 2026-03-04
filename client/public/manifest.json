@@ -1,0 +1,27 @@
+{
+  "name": "TradeIQ - AI Trading Intelligence",
+  "short_name": "TradeIQ",
+  "description": "AI-powered trading signals for Forex and Gold. Get real-time market analysis and high-confidence trade recommendations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "business"],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

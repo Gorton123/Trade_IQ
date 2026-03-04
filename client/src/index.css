@@ -1,0 +1,293 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* LIGHT MODE - Professional Trading Theme */
+:root {
+  --button-outline: rgba(0,0,0, .10);
+  --badge-outline: rgba(0,0,0, .05);
+
+  /* Automatic computation of border around primary / danger buttons */
+  --opaque-button-border-intensity: -8; /* In terms of percentages */
+
+  /* Backgrounds applied on top of other backgrounds when hovered/active */
+  --elevate-1: rgba(0,0,0, .03);
+  --elevate-2: rgba(0,0,0, .08);
+
+  --background: 220 20% 97%;
+  --foreground: 220 25% 10%;
+  --border: 220 15% 88%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 25% 10%;
+  --card-border: 220 15% 90%;
+
+  --sidebar: 220 20% 96%;
+  --sidebar-foreground: 220 25% 15%;
+  --sidebar-border: 220 15% 88%;
+  --sidebar-primary: 217 91% 50%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 15% 92%;
+  --sidebar-accent-foreground: 220 25% 15%;
+  --sidebar-ring: 217 91% 50%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 25% 10%;
+  --popover-border: 220 15% 88%;
+
+  --primary: 217 91% 50%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 220 15% 94%;
+  --secondary-foreground: 220 25% 20%;
+
+  --muted: 220 15% 94%;
+  --muted-foreground: 220 15% 45%;
+
+  --accent: 220 15% 92%;
+  --accent-foreground: 220 25% 15%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+
+  --input: 220 15% 85%;
+  --ring: 217 91% 50%;
+  
+  /* Chart colors - Trading specific */
+  --chart-1: 142 71% 45%; /* Green for bullish */
+  --chart-2: 0 72% 51%; /* Red for bearish */
+  --chart-3: 217 91% 50%; /* Blue for neutral */
+  --chart-4: 45 93% 47%; /* Gold/amber for XAUUSD */
+  --chart-5: 280 65% 60%; /* Purple for signals */
+
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --radius: .5rem;
+  --shadow-2xs: 0px 1px 2px 0px rgba(0,0,0,0.03);
+  --shadow-xs: 0px 1px 3px 0px rgba(0,0,0,0.05);
+  --shadow-sm: 0px 2px 4px 0px rgba(0,0,0,0.05), 0px 1px 2px -1px rgba(0,0,0,0.03);
+  --shadow: 0px 4px 6px 0px rgba(0,0,0,0.05), 0px 2px 4px -1px rgba(0,0,0,0.03);
+  --shadow-md: 0px 6px 10px 0px rgba(0,0,0,0.06), 0px 3px 6px -1px rgba(0,0,0,0.04);
+  --shadow-lg: 0px 10px 15px 0px rgba(0,0,0,0.07), 0px 5px 10px -1px rgba(0,0,0,0.05);
+  --shadow-xl: 0px 15px 25px 0px rgba(0,0,0,0.08), 0px 10px 15px -1px rgba(0,0,0,0.05);
+  --shadow-2xl: 0px 25px 50px 0px rgba(0,0,0,0.12);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+
+  /* Automatically computed borders */
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+}
+
+/* DARK MODE - Professional Trading Dark Theme */
+.dark {
+  --button-outline: rgba(255,255,255, .10);
+  --badge-outline: rgba(255,255,255, .05);
+
+  --opaque-button-border-intensity: 9;
+
+  --elevate-1: rgba(255,255,255, .04);
+  --elevate-2: rgba(255,255,255, .09);
+
+  --background: 222 47% 8%;
+  --foreground: 210 20% 95%;
+  --border: 220 30% 18%;
+
+  --card: 222 40% 11%;
+  --card-foreground: 210 20% 95%;
+  --card-border: 220 30% 20%;
+
+  --sidebar: 222 45% 7%;
+  --sidebar-foreground: 210 20% 90%;
+  --sidebar-border: 220 30% 15%;
+  --sidebar-primary: 217 91% 60%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 30% 15%;
+  --sidebar-accent-foreground: 210 20% 90%;
+  --sidebar-ring: 217 91% 60%;
+
+  --popover: 222 40% 10%;
+  --popover-foreground: 210 20% 95%;
+  --popover-border: 220 30% 18%;
+
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 220 30% 18%;
+  --secondary-foreground: 210 20% 85%;
+
+  --muted: 220 25% 16%;
+  --muted-foreground: 215 20% 55%;
+
+  --accent: 220 30% 16%;
+  --accent-foreground: 210 20% 90%;
+
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 0 0% 100%;
+
+  --input: 220 30% 22%;
+  --ring: 217 91% 60%;
+  
+  /* Chart colors - Trading specific (adjusted for dark mode) */
+  --chart-1: 142 71% 50%; /* Green for bullish */
+  --chart-2: 0 72% 55%; /* Red for bearish */
+  --chart-3: 217 91% 60%; /* Blue for neutral */
+  --chart-4: 45 93% 52%; /* Gold/amber for XAUUSD */
+  --chart-5: 280 65% 65%; /* Purple for signals */
+
+  --shadow-2xs: 0px 1px 2px 0px rgba(0,0,0,0.2);
+  --shadow-xs: 0px 1px 3px 0px rgba(0,0,0,0.25);
+  --shadow-sm: 0px 2px 4px 0px rgba(0,0,0,0.25), 0px 1px 2px -1px rgba(0,0,0,0.2);
+  --shadow: 0px 4px 6px 0px rgba(0,0,0,0.3), 0px 2px 4px -1px rgba(0,0,0,0.2);
+  --shadow-md: 0px 6px 10px 0px rgba(0,0,0,0.35), 0px 3px 6px -1px rgba(0,0,0,0.25);
+  --shadow-lg: 0px 10px 15px 0px rgba(0,0,0,0.4), 0px 5px 10px -1px rgba(0,0,0,0.3);
+  --shadow-xl: 0px 15px 25px 0px rgba(0,0,0,0.45), 0px 10px 15px -1px rgba(0,0,0,0.35);
+  --shadow-2xl: 0px 25px 50px 0px rgba(0,0,0,0.5);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Trading-specific utility classes */
+@layer utilities {
+  /* Hide ugly search cancel button in Chrome until we can style it properly */
+  input[type="search"]::-webkit-search-cancel-button {
+    @apply hidden;
+  }
+
+  /* Placeholder styling for contentEditable div */
+  [contenteditable][data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+  }
+
+  .no-default-hover-elevate {}
+  .no-default-active-elevate {}
+
+  .toggle-elevate::before,
+  .toggle-elevate-2::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  .toggle-elevate.toggle-elevated::before {
+    background-color: var(--elevate-2);
+  }
+
+  .border.toggle-elevate::before {
+    inset: -1px;
+  }
+
+  .hover-elevate:not(.no-default-hover-elevate),
+  .active-elevate:not(.no-default-active-elevate),
+  .hover-elevate-2:not(.no-default-hover-elevate),
+  .active-elevate-2:not(.no-default-active-elevate) {
+    position: relative;
+    z-index: 0;
+  }
+
+  .hover-elevate:not(.no-default-hover-elevate)::after,
+  .active-elevate:not(.no-default-active-elevate)::after,
+  .hover-elevate-2:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:not(.no-default-active-elevate)::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: 999;
+  }
+
+  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-1);
+  }
+
+  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-2);
+  }
+
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate:not(.no-active-interaction-elevate)::after,
+  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
+    inset: -1px;
+  }
+
+  /* Bullish/Bearish text colors */
+  .text-bullish {
+    color: hsl(var(--chart-1));
+  }
+  
+  .text-bearish {
+    color: hsl(var(--chart-2));
+  }
+  
+  .text-neutral {
+    color: hsl(var(--chart-3));
+  }
+  
+  .text-gold {
+    color: hsl(var(--chart-4));
+  }
+
+  /* Background variants for signals */
+  .bg-bullish {
+    background-color: hsl(var(--chart-1) / 0.15);
+  }
+  
+  .bg-bearish {
+    background-color: hsl(var(--chart-2) / 0.15);
+  }
+  
+  .bg-neutral-signal {
+    background-color: hsl(var(--chart-3) / 0.15);
+  }
+
+  /* Price display styling */
+  .font-price {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Pulse animation for live data */
+  .pulse-live {
+    animation: pulse-live 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-live {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+}

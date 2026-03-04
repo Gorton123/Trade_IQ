@@ -1,0 +1,57 @@
+services:
+  - type: web
+    name: tradeiq
+    runtime: node
+    region: frankfurt
+    plan: starter          # £7/mo — keeps always-on (signals need 24/7)
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tradeiq-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: RENDER_EXTERNAL_URL
+        fromService:
+          name: tradeiq
+          type: web
+          property: host
+      # === Market Data ===
+      - key: OANDA_API_KEY
+        sync: false
+      - key: OANDA_ACCOUNT_ID
+        sync: false
+      - key: TWELVE_DATA_API_KEY
+        sync: false
+      - key: ALPHA_VANTAGE_API_KEY
+        sync: false
+      # === Telegram ===
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      # === Stripe Payments ===
+      - key: STRIPE_LIVE_SECRET_KEY
+        sync: false
+      - key: STRIPE_LIVE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      # === Push Notifications (VAPID) ===
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_EMAIL
+        value: mailto:admin@tradeiq.app
+
+databases:
+  - name: tradeiq-db
+    databaseName: tradeiq
+    plan: basic            # £7/mo — persistent PostgreSQL
+    region: frankfurt
