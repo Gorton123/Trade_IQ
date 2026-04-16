@@ -11,6 +11,7 @@ const serverOptions = {
   target: "node18",
   outdir: "dist",
   packages: "external" as const,
+  outExtension: { ".js": ".cjs" },
 };
 
 console.log("Building server...");
