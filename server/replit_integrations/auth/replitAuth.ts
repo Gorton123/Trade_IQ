@@ -36,12 +36,10 @@ export function getSession() {
 }
 
 export async function hashPassword(password: string): Promise<string> {
-  const bcrypt = await import("bcryptjs");
   return bcrypt.hash(password, SALT_ROUNDS);
 }
 
 export async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  const bcrypt = await import("bcryptjs");
   return bcrypt.compare(password, hash);
 }
 
