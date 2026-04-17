@@ -1022,6 +1022,11 @@ function generateMockAnalysis(instrument: Instrument, timeframe: Timeframe, isLi
     "USDCHF": 0.9075,
     "AUDUSD": 0.6274,
     "NZDUSD": 0.5646,
+    "USDJPY": 142.50,
+    "USDCAD": 1.3850,
+    "EURGBP": 0.8420,
+    "EURJPY": 149.10,
+    "GBPJPY": 177.20,
   };
   
   // Get or create price tracking for this instrument

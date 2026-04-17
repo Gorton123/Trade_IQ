@@ -144,11 +144,11 @@ export function MarketCard({ analysis, isLoading, onClick }: MarketCardProps) {
       <CardContent className="space-y-3">
         <div className="flex items-baseline justify-between gap-2">
           <span className="text-2xl font-bold font-price" data-testid={`price-${analysis.instrument}`}>
-            {isMetal ? analysis.currentPrice.toFixed(2) : analysis.currentPrice.toFixed(5)}
+            {analysis.currentPrice != null ? (isMetal ? analysis.currentPrice.toFixed(2) : analysis.currentPrice.toFixed(5)) : "—"}
           </span>
           <span className={`text-sm font-semibold flex items-center gap-1 ${isPositive ? 'text-bullish' : 'text-bearish'}`}>
             {isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-            {isPositive ? '+' : ''}{priceChange.toFixed(2)}%
+            {isPositive ? '+' : ''}{priceChange != null ? priceChange.toFixed(2) : "0.00"}%
           </span>
         </div>
         
