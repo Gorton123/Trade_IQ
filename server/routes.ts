@@ -1519,6 +1519,19 @@ export async function registerRoutes(
   await setupAuth(app);
   registerAuthRoutes(app);
 
+  // Seed OANDA credentials into historicalDataService from DB on startup
+  try {
+    const allCreds = await db.select().from(userOandaCredentials).where(eq(userOandaCredentials.isConnected, true));
+    for (const creds of allCreds) {
+      if (creds.apiKey && creds.accountId) {
+        historicalDataService.setOandaCredentials(creds.apiKey, creds.accountId, creds.environment === "live");
+        break;
+      }
+    }
+  } catch (e) {
+    console.warn("[Startup] Could not seed historical data credentials:", e);
+  }
+
   // ===== COMMISSION & STRIPE ROUTES =====
 
   // Get Stripe publishable key
@@ -6993,6 +7006,7 @@ export function registerJournalRoutes(app: Express) {
       if (success) {
         // Save credentials to user's database record (encrypted)
         await saveUserOandaCredentials(userId, apiKey, accountId, isLive ? "live" : "demo");
+        historicalDataService.setOandaCredentials(apiKey, accountId, isLive || false);
         
         const currentSettings = await getUserSettings(userId);
         const isFirstConnection = !currentSettings.updatedAt;

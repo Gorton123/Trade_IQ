@@ -337,6 +337,14 @@ class HistoricalDataService {
     return data;
   }
 
+  setOandaCredentials(apiKey: string, accountId: string, isLive: boolean = false): void {
+    this.oandaApiKey = apiKey;
+    this.oandaAccountId = accountId;
+    this.oandaIsLive = isLive;
+    this.oandaFailCount = 0;
+    console.log(`[HistoricalData] OANDA credentials updated (${isLive ? 'live' : 'demo'}) — signals will use real candle data`);
+  }
+
   clearCache() {
     this.cache.clear();
   }
