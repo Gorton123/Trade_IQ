@@ -63,6 +63,22 @@ export async function setupAuth(app: Express) {
   app.set("trust proxy", 1);
   app.use(getSession());
 
+  // Global soft-auth: decode JWT and populate req.user for all routes
+  app.use((req: Request, _res: Response, next: NextFunction) => {
+    const token: string | undefined = req.cookies?.tradeiq_token || req.headers.authorization?.replace("Bearer ", "");
+    if (token) {
+      const payload = verifyToken(token);
+      if (payload) {
+        (req as any).user = {
+          claims: { sub: payload.sub, email: payload.email, exp: payload.exp },
+          access_token: token,
+          expires_at: payload.exp,
+        };
+      }
+    }
+    next();
+  });
+
   app.post("/api/auth/register", async (req: Request, res: Response) => {
     try {
       const { email, password, firstName, lastName } = req.body;
