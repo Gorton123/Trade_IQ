@@ -1519,17 +1519,25 @@ export async function registerRoutes(
   await setupAuth(app);
   registerAuthRoutes(app);
 
-  // Seed OANDA credentials into historicalDataService from DB on startup
+  // Seed OANDA credentials from DB on startup
   try {
     const allCreds = await db.select().from(userOandaCredentials).where(eq(userOandaCredentials.isConnected, true));
     for (const creds of allCreds) {
       if (creds.apiKey && creds.accountId) {
-        historicalDataService.setOandaCredentials(creds.apiKey, creds.accountId, creds.environment === "live");
+        const isLiveEnv = creds.environment === "live";
+        historicalDataService.setOandaCredentials(creds.apiKey, creds.accountId, isLiveEnv);
+        await oandaService.configure(creds.apiKey, creds.accountId, isLiveEnv);
+        const { existsSync } = await import('fs');
+        const { join } = await import('path');
+        if (!existsSync(join(process.cwd(), 'historical-data-cache.json'))) {
+          console.log('[Startup] No optimizer cache found — fetching historical data in background...');
+          fetchOptimizerHistoricalData(creds.apiKey, isLiveEnv).catch(e => console.warn('[Startup] Optimizer data fetch error:', e));
+        }
         break;
       }
     }
   } catch (e) {
-    console.warn("[Startup] Could not seed historical data credentials:", e);
+    console.warn("[Startup] Could not seed OANDA credentials:", e);
   }
 
   // ===== COMMISSION & STRIPE ROUTES =====
@@ -7007,6 +7015,7 @@ export function registerJournalRoutes(app: Express) {
         // Save credentials to user's database record (encrypted)
         await saveUserOandaCredentials(userId, apiKey, accountId, isLive ? "live" : "demo");
         historicalDataService.setOandaCredentials(apiKey, accountId, isLive || false);
+        await oandaService.configure(apiKey, accountId, isLive || false);
         
         const currentSettings = await getUserSettings(userId);
         const isFirstConnection = !currentSettings.updatedAt;
@@ -7951,8 +7960,11 @@ export function registerJournalRoutes(app: Express) {
       let fetched = 0;
       let errors = 0;
 
-      const oandaApiKey = process.env.OANDA_API_KEY;
-      const oandaAccountId = process.env.OANDA_ACCOUNT_ID;
+      const dbCreds = await db.select().from(userOandaCredentials).where(eq(userOandaCredentials.isConnected, true));
+      const firstDbCred = dbCreds[0];
+      const oandaApiKey = firstDbCred?.apiKey || process.env.OANDA_API_KEY || null;
+      const oandaAccountId = firstDbCred?.accountId || process.env.OANDA_ACCOUNT_ID || null;
+      const oandaIsLiveEnv = firstDbCred?.environment === 'live';
       const oandaSymbolMapping: Record<string, string> = {
         'XAUUSD': 'XAU_USD', 'XAGUSD': 'XAG_USD',
         'EURUSD': 'EUR_USD', 'GBPUSD': 'GBP_USD',
@@ -7966,7 +7978,7 @@ export function registerJournalRoutes(app: Express) {
       };
 
       if (oandaInstruments.length > 0 && oandaApiKey) {
-        const baseUrl = 'https://api-fxpractice.oanda.com';
+        const baseUrl = oandaIsLiveEnv ? 'https://api-fxtrade.oanda.com' : 'https://api-fxpractice.oanda.com';
         for (let i = 0; i < oandaInstruments.length; i++) {
           const { instrument, timeframe } = oandaInstruments[i];
           const oandaSymbol = oandaSymbolMapping[instrument] || instrument;
